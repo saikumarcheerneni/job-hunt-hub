@@ -14,6 +14,47 @@ export type Database = {
   }
   public: {
     Tables: {
+      job_matches: {
+        Row: {
+          bullets: Json
+          created_at: string
+          id: string
+          job_id: string
+          missing_skills: Json
+          score: number
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          bullets?: Json
+          created_at?: string
+          id?: string
+          job_id: string
+          missing_skills?: Json
+          score: number
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          bullets?: Json
+          created_at?: string
+          id?: string
+          job_id?: string
+          missing_skills?: Json
+          score?: number
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "job_matches_job_id_fkey"
+            columns: ["job_id"]
+            isOneToOne: true
+            referencedRelation: "jobs"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       jobs: {
         Row: {
           company: string
@@ -44,6 +85,27 @@ export type Database = {
           title?: string
           updated_at?: string
           user_id?: string
+        }
+        Relationships: []
+      }
+      profiles: {
+        Row: {
+          created_at: string
+          id: string
+          resume_text: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          id: string
+          resume_text?: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          resume_text?: string
+          updated_at?: string
         }
         Relationships: []
       }
