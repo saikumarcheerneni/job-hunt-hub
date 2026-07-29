@@ -92,8 +92,14 @@ export async function analyzeResumeMatch(input: {
       if (res.status === 401) return { match: null, error: "The Claude API key was rejected." };
       if (res.status === 429)
         return { match: null, error: "Claude is rate limited — try again in a moment." };
+      if (/credit balance is too low/i.test(body))
+        return {
+          match: null,
+          error: "Your Anthropic account is out of credits — add credits in the Anthropic console.",
+        };
       return { match: null, error: "Could not reach the resume matching service." };
     }
+
 
     const payload = (await res.json()) as { content?: AnthropicContent[] };
     const toolUse = (payload.content ?? []).find(
