@@ -18,6 +18,8 @@ import {
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { StatusBadge } from "@/components/StatusBadge";
 import { JobSearch } from "@/components/JobSearch";
+import { ResumeField } from "@/components/ResumeField";
+import { JobMatch } from "@/components/JobMatch";
 import { useAuth } from "@/hooks/useAuth";
 import { supabase } from "@/integrations/supabase/client";
 import {
@@ -32,6 +34,7 @@ import {
   type Job,
   type JobStatus,
 } from "@/lib/jobs";
+import { fetchMatches } from "@/lib/profile";
 import { cn } from "@/lib/utils";
 
 export const Route = createFileRoute("/")({
@@ -133,6 +136,10 @@ function Tracker({ userId }: { userId: string }) {
 
   const jobsQuery = useQuery({ queryKey: ["jobs", userId], queryFn: fetchJobs });
   const jobs: Job[] = jobsQuery.data ?? [];
+  const matchesQuery = useQuery({ queryKey: ["job-matches", userId], queryFn: fetchMatches });
+  const matches = matchesQuery.data ?? {};
+  const invalidateMatches = () =>
+    queryClient.invalidateQueries({ queryKey: ["job-matches", userId] });
 
   const invalidate = () => queryClient.invalidateQueries({ queryKey: ["jobs", userId] });
   const onError = (e: unknown) =>
@@ -202,7 +209,9 @@ function Tracker({ userId }: { userId: string }) {
         </TabsContent>
 
         <TabsContent value="tracker" className="grid gap-8 lg:grid-cols-[22rem_1fr]">
-      <section className="h-fit rounded-2xl border border-border bg-card p-6 shadow-sm">
+      <div className="h-fit space-y-6">
+      <ResumeField userId={userId} />
+      <section className="rounded-2xl border border-border bg-card p-6 shadow-sm">
         <h2 className="text-lg font-semibold">Add a job</h2>
         <form
           onSubmit={(e) => {
@@ -262,6 +271,7 @@ function Tracker({ userId }: { userId: string }) {
           </Button>
         </form>
       </section>
+      </div>
 
       <section>
         {pendingLocal > 0 && (
@@ -343,6 +353,8 @@ function Tracker({ userId }: { userId: string }) {
                   </SelectContent>
                 </Select>
               </div>
+
+              <JobMatch jobId={job.id} match={matches[job.id]} onMatched={invalidateMatches} />
             </li>
           ))}
         </ul>
