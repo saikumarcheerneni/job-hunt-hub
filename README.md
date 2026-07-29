@@ -1,24 +1,11 @@
 # Job Hunt Hub
 
-Build a job application tracker. I should be able to add a job with title, company, job description text, and status (saved, applied, interview, rejected). Show them as a list I can filter by status.
+Job Hunt Hub is a job application tracker that goes past a simple spreadsheet. Instead of manually logging jobs, it pulls in live postings from the Adzuna API and uses Claude to score how well my resume matches each one, so I know what to fix before applying.
 
-This project was built with [Lovable](https://lovable.dev).
+I built this because most job trackers are just a status board. The part I actually wanted to solve was the AI matching, given a real job description and my resume, tell me what's missing and what to change, not just track that I applied somewhere.
 
-## Build with Lovable
+How it works: users sign in with email or Google, and their data is stored in a Postgres database so it syncs across devices. The job search tab calls a backend function that queries the Adzuna API for live Canadian job postings, the API keys are stored as server-side secrets and never exposed to the browser. When a user pastes their resume and clicks "Match resume" on a saved job, a second backend function sends the resume and the job's full description to Claude, which returns structured JSON: a match score, missing skills, and suggested resume bullet rewrites.
 
-Continue developing this project in the [Lovable editor](https://lovable.dev/projects/948ef10a-8850-44e6-8064-7fd0ac102725).
+Tech stack: React frontend, Supabase for auth and Postgres database, backend edge functions for the Adzuna and Claude API calls, Claude API for resume matching, Adzuna API for live job data.
 
-- **Ship faster**: describe what you want to build and Lovable handles the code.
-- **Stay in sync**: every change made in Lovable is committed straight to this repository.
-- **Full ownership**: this code is yours. Push to `main` on GitHub and your changes sync back into Lovable, ready for your next prompt.
-
-## Development
-
-Prefer working locally? You need Node.js and npm — [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating).
-
-```sh
-git clone <this-repository-url>
-cd <repository-name>
-npm i
-npm run dev
-```
+Built with Lovable for the UI scaffolding, with the API integrations and prompt design done manually.
