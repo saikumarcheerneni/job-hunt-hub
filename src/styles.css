@@ -4,6 +4,20 @@
 
 @custom-variant dark (&:is(.dark *));
 
+@theme inline {
+  --font-display: "Space Grotesk", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "DM Sans", ui-sans-serif, system-ui, sans-serif;
+  --color-status-saved: var(--status-saved);
+  --color-status-saved-soft: var(--status-saved-soft);
+  --color-status-applied: var(--status-applied);
+  --color-status-applied-soft: var(--status-applied-soft);
+  --color-status-interview: var(--status-interview);
+  --color-status-interview-soft: var(--status-interview-soft);
+  --color-status-rejected: var(--status-rejected);
+  --color-status-rejected-soft: var(--status-rejected-soft);
+}
+
+
 /*
  * Design system definition.
  *
