@@ -40,17 +40,17 @@ import { cn } from "@/lib/utils";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Job Application Tracker — Synced Across Your Devices" },
+      { title: "Job Hunt Hub — AI Resume Matching for Real Job Postings" },
       {
         name: "description",
         content:
-          "Add jobs with title, company, and description, filter by status, and keep your pipeline in sync on every device.",
+          "Pulls live job postings and use Claude to score your resume against each one, with missing skills and tailored bullet suggestions.",
       },
-      { property: "og:title", content: "Job Application Tracker" },
+      { property: "og:title", content: "Job Hunt Hub — AI Resume Matching for Real Job Postings" },
       {
         property: "og:description",
         content:
-          "Track every application by status: saved, applied, interview, rejected — synced across devices.",
+          "Pulls live job postings and use Claude to score your resume against each one, with missing skills and tailored bullet suggestions.",
       },
     ],
   }),
