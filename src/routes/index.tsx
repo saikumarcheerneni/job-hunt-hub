@@ -190,7 +190,18 @@ function Tracker({ userId }: { userId: string }) {
   );
 
   return (
-    <main className="mx-auto grid max-w-5xl gap-8 px-6 py-10 lg:grid-cols-[22rem_1fr]">
+    <main className="mx-auto max-w-5xl px-6 py-10">
+      <Tabs defaultValue="tracker">
+        <TabsList className="mb-8">
+          <TabsTrigger value="tracker">My tracker</TabsTrigger>
+          <TabsTrigger value="search">Job search</TabsTrigger>
+        </TabsList>
+
+        <TabsContent value="search">
+          <JobSearch userId={userId} onSaved={invalidate} />
+        </TabsContent>
+
+        <TabsContent value="tracker" className="grid gap-8 lg:grid-cols-[22rem_1fr]">
       <section className="h-fit rounded-2xl border border-border bg-card p-6 shadow-sm">
         <h2 className="text-lg font-semibold">Add a job</h2>
         <form
@@ -344,6 +355,8 @@ function Tracker({ userId }: { userId: string }) {
           </p>
         )}
       </section>
+        </TabsContent>
+      </Tabs>
     </main>
   );
 }
