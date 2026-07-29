@@ -9,7 +9,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { searchJobs } from "@/lib/adzuna.functions";
 import { createJob } from "@/lib/jobs";
-import type { AdzunaResult } from "@/lib/adzuna.server";
+import type { AdzunaResult } from "@/lib/adzuna.types";
 
 export function JobSearch({ userId, onSaved }: { userId: string; onSaved: () => void }) {
   const [keyword, setKeyword] = useState("");
